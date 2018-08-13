@@ -1,0 +1,5 @@
+.gitignore
+*.sh
+google_vecs2.txt
+docker-entry-point-initdb.d/*
+.git
