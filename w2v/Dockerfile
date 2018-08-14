@@ -11,7 +11,6 @@ RUN mkdir vectors
 ADD google_vecs.txt vectors/google_vecs.txt
 RUN cd freddy_extension && \
     make install
-COPY docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 USER postgres
 WORKDIR /home/postgres
 RUN curl -o miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \

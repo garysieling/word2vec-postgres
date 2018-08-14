@@ -1,0 +1,3 @@
+create database imdb;
+\c imdb;
+create extension freddy;
