@@ -1,3 +1,14 @@
 \c imdb;
 
 SELECT init('google_vecs', 'google_vecs_norm', 'pq_quantization', 'pq_codebook', 'fine_quantization', 'coarse_quantization', 'residual_codebook');
+
+create table movies(title varchar);
+insert into movies (title) values ('The Godfather');
+insert into movies (title) values ('Star Wars');
+insert into movies (title) values ('Hogfather');
+
+SELECT * 
+FROM top_k_in_pq(
+    'Godfather', 5, 
+    ARRAY(SELECT title FROM movies)
+);
