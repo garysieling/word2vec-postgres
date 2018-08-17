@@ -72,5 +72,11 @@ cd ~/postgres-word2vec/index_creation/
 
 psql -c "SELECT init('google_vecs', 'google_vecs_norm', 'pq_quantization', 'pq_codebook', 'fine_quantization', 'coarse_quantization', 'residual_codebook');" imdb
 psql -c "create extension freddy;" imdb
+psql -c "create user admin with superuser password 'admin';" imdb
 
 #./slack.sh "provisioning complete"
+
+echo "listen_addresses = '*'" >> /etc/postgresql/10/main/postgresql.conf
+echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/10/main/pg_hba.conf
+
+service postgresql restart
