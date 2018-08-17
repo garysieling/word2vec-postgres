@@ -1,12 +1,12 @@
 apt-get update && apt-get -y upgrade &&
 apt-get install -y \
     curl git make build-essential &&
-apt-get install -y postgresql postgresql-contrib postgresql-server-dev-9.5
+apt-get install -y postgresql postgresql-contrib postgresql-server-dev-9.3
 
 su postgres
 cd ~
 
-git clone https://github.com/guenthermi/postgres-word2vec
+git clone https://github.com/guenthermi/postgres-word2vec --quiet
 cd postgres-word2vec
 mkdir vectors
 
@@ -36,7 +36,7 @@ curl -o miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux
 #cd index_creation
 # ~/miniconda3/bin/python3 transform_vecs.py
 
-# scp g.tar root@142.93.196.38:/var/lib/postgresql/postgres-word2vec/vectors/g.tar
+# scp g.tar rogot@142.93.196.38:/var/lib/postgresql/postgres-word2vec/vectors/g.tar
 cd ~/postgres-word2vec/vectors/
 
 create user admin with superuser password 'password';
@@ -45,7 +45,7 @@ vi config/db_config.json
 
 # set username, password, db
 
-./slack.sh "started: 'python3 vec2database.py config/vecs_config.json'"
+#./slack.sh "started: 'python3 vec2database.py config/vecs_config.json'"
 ~/miniconda3/bin/python3 vec2database.py config/vecs_config.json
 ./slack.sh "started: 'python3 vec2database.py config/vecs_norm_config.json'"
 ~/miniconda3/bin/python3 vec2database.py config/vecs_norm_config.json
