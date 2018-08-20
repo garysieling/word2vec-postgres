@@ -9,7 +9,7 @@ apt-get install -y postgresql
 apt-get install -y postgresql-contrib postgresql-server-dev-10
 
 echo "creating db"
-su postgres -c 'psql -c "create database imdb;"'
+su postgres -c 'psql -c "create database jobs;"'
 
 #./slack.sh "started: cloning"
 
@@ -53,11 +53,29 @@ curl -o miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux
 #./slack.sh "started: acquiring data"
 
 # scp g.tar root@142.93.196.38:/var/lib/postgresql/postgres-word2vec/vectors/g.tar
-cd ~/postgres-word2vec/vectors/
+cd ~/postgres-word2vec/
 
-ln -s /vagrant_data/google_vecs.txt ./google_vecs.txt
+curl -L -o ./google_vec.tar https://www.dropbox.com/s/fhglt3y3b7l1hx7/google_vec.tar?dl=0 --progress-bar
+find .
+tar xvf ./google_vec.tar 
+
+mv ./google_vecs2.txt ./vectors/google_vecs.txt
 
 cd ~/postgres-word2vec/index_creation/
+
+su postgres -c "psql -c \"create user admin with superuser password 'admin'\";"
+
+cat > config/db_config.json << EndOfMessage
+{
+        "username": "admin",
+        "password": "admin",
+        "host": "localhost",
+        "db_name": "jobs",
+        "batch_size": 50000,
+        "log": ""
+}
+EndOfMessage
+
 
 #./slack.sh "started: 'python3 vec2database.py config/vecs_config.json'"
 ~/miniconda3/bin/python3 vec2database.py config/vecs_config.json
@@ -70,9 +88,8 @@ cd ~/postgres-word2vec/index_creation/
 
 #./slack.sh "started: inititialing extension"
 
-psql -c "SELECT init('google_vecs', 'google_vecs_norm', 'pq_quantization', 'pq_codebook', 'fine_quantization', 'coarse_quantization', 'residual_codebook');" imdb
-psql -c "create extension freddy;" imdb
-psql -c "create user admin with superuser password 'admin';" imdb
+su postgres -c "psql -c \"SELECT init('google_vecs', 'google_vecs_norm', 'pq_quantization', 'pq_codebook', 'fine_quantization', 'coarse_quantization', 'residual_codebook');\" jobs"
+su postgres -c "psql -c \"create extension freddy;\" jobs"
 
 #./slack.sh "provisioning complete"
 
