@@ -1,0 +1,20 @@
+{
+  "name": "jobs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jobs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "cheerio": "^1.0.0-rc.2",
+    "follow-redirects": "^1.5.5",
+    "indeed-scraper": "^2.0.2",
+    "lodash": "^4.17.10",
+    "natural": "^0.6.1",
+    "pg": "^7.4.3"
+  }
+}
