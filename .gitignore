@@ -1,2 +1,4 @@
 google_vecs.txt
 google_vecs2.txt
+*.tar
+jobs/node_modules
