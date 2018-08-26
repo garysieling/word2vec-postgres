@@ -10,7 +10,7 @@ apt-get install -y postgresql-contrib postgresql-server-dev-10
 
 echo "creating db"
 su postgres -c 'psql -c "create database jobs;"'
-
+su postgres -c 'psql -c "create table jobs (title text, url text, company text, location text, postData text, description text, index bigint, query json);" jobs';
 #./slack.sh "started: cloning"
 
 #sudo -u postgres -i
