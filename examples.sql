@@ -69,5 +69,19 @@ from job_descriptions;
 
 select tokenize('javascript css web developer') as query;
 
+
+SELECT jobs.title, t.*
+from jobs,
+     k_nearest_neighbour_ivfadc(jobs.title, 100) as t
+ORDER BY jobs.title ASC;
+
+
+SELECT *
+FROM
+  knn_in_pq(
+    'javascript'::text,
+    50,
+    ARRAY(SELECT title FROM jobs));
+
 -- what rare skills do I have?
 
