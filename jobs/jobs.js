@@ -23,7 +23,7 @@ client.connect(
 );
 
 const city_set = [
-    `New York, NY`,
+   /* `New York, NY`,
     `Chicago, IL`,
     `San Francisco, CA`,
     `Austin, TX`,
@@ -40,7 +40,25 @@ const city_set = [
     `Miami, FL`,
     `Washington DC`,
     `Boulder, CO`,
-    `Baltimore, MD`
+    `Baltimore, MD`*/
+    `Rochester, NY`,
+    `Boston, MA`,
+    `Buffalo, NY`,
+    `Ithaca, NY`,
+    `Nashville, TN`,
+    `Las Vegas, NV`,
+    `Sacramento, CA`,
+    `San Antonio, TX`,
+    `Houston, TX`,
+    `Albany, NY`,
+    `Ann Arbor, MI`,
+    `Minneapolis, MN`,
+    `Detroit, MI`,
+    `Binghamton, NY`,
+    `Corning, NY`,
+    `Jamestown, NY`,
+    `Allentown, PA`,
+    `Reading, PA`
 ];
 
 const levels = [
