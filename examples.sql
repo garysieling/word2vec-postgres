@@ -69,19 +69,35 @@ from job_descriptions;
 
 select tokenize('javascript css web developer') as query;
 
+drop table knn_output;
 
-SELECT jobs.title, t.*
+create table knn_output as (
+SELECT distinct lower(jobs.title) title, lower(t.word) word, t.similarity
 from jobs,
-     k_nearest_neighbour_ivfadc(jobs.title, 100) as t
-ORDER BY jobs.title ASC;
+     k_nearest_neighbour_ivfadc(jobs.title, 1000) as t
+);
+
+select * from knn_output where title = 'node.js' order by word;
+select distinct title from knn_output order by 1;
+select distinct title from jobs order by 1;
 
 
 SELECT *
 FROM
   knn_in_pq(
-    'javascript'::text,
+    'css'::text,
     50,
     ARRAY(SELECT title FROM jobs));
+
+CREATE INDEX description_idx ON jobs USING GIN(to_tsvector('english', description));
+
+select ts_rank_cd(
+        to_tsvector('english', description),
+        to_tsquery('javascript | react | d3 | node | js | css | html | web | front | end')) fts_score, *
+from jobs
+where to_tsvector('english', description) @@ to_tsquery('javascript | react | d3 | node | js | css | html')
+order by 1 desc
+limit 100
 
 -- what rare skills do I have?
 
